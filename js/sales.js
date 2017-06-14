@@ -17,16 +17,7 @@ Store.prototype.generateCustomers = function() {
   return cookiesPurchasedEachHour;
 };
 
-var firstAndPike = {
-  name: '1st and Pike',
-  minHourlyCustomer: 23,
-  maxHourlyCustomer: 65,
-  hourlyCookiesPerCustomer: 6.3,
-  cookiesPurchasedEachHour: [],
-  generateCustomers: function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-};
+var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
 
 var seaTacAirport = {
   name: 'SeaTac Airport',
@@ -74,8 +65,10 @@ var alki = {
 
 var generateList = function (store) {
   // Generate cookies for each hour from 6 AM to 8 PM, 15 hours in all
-  for(var i = 0; i < 15; i++) {
-    store.cookiesPurchasedEachHour[i] = store.generateCustomers(store.minHourlyCustomer, store.maxHourlyCustomer);
+  if(store.name != '1st and Pike') {
+    for(var i = 0; i < 15; i++) {
+      store.cookiesPurchasedEachHour[i] = store.generateCustomers(store.minHourlyCustomer, store.maxHourlyCustomer);
+    }
   }
 
   var parentElement = document.getElementById('stores');
