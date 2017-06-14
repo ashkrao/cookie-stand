@@ -1,5 +1,22 @@
 'use strict';
 
+// Store constructor
+function Store (name, minHourlyCustomer, maxHourlyCustomer, hourlyCookiesPerCustomer) {
+  this.name = name;
+  this.minHourlyCustomer = minHourlyCustomer;
+  this.maxHourlyCustomer = maxHourlyCustomer;
+  this.hourlyCookiesPerCustomer = hourlyCookiesPerCustomer;
+  this.cookiesPurchasedEachHour = this.generateCustomers();
+}
+
+Store.prototype.generateCustomers = function() {
+  var cookiesPurchasedEachHour = [];
+  for(var i = 0; i < 14; i++) {
+    cookiesPurchasedEachHour[i] = Math.floor(Math.random() * (this.maxHourlyCustomer - this.minHourlyCustomer + 1)) + this.minHourlyCustomer;
+  }
+  return cookiesPurchasedEachHour;
+};
+
 var firstAndPike = {
   name: '1st and Pike',
   minHourlyCustomer: 23,
