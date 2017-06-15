@@ -5,6 +5,24 @@
   </head>
   <body>
     <main>
+      <h2>Add a store</h2>
+      <form id="addStoreForm">
+        <fieldset>
+          <legend>About the store</legend>
+          <label>Name</label>
+          <input name="name" type="text" />
+        </fieldset>
+        <fieldset>
+          <legend>Store statistics</legend>
+          <label>Minimum customers per hour</label>
+          <input name="minHourlyCustomer" type="text" />
+          <label>Maximum customers per hour</label>
+          <input name="maxHourlyCustomer" type="text" />
+          <label>Average cookies per customer</label>
+          <input name="hourlyCookiesPerCustomer" type="text" />
+        </fieldset>
+        <button type="submit">Add Store</button>
+      </form>
       <h2>Store Sales Information:</h2>
       <div id="stores">
       </div>
