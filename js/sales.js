@@ -44,6 +44,22 @@ var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
+var addStoreForm = document.getElementById('addStoreForm');
+// event listeners ened to know: what event do they care about, and what do they want to do when it happens.
+addStoreForm.addEventListener('submit',
+  function (event) {
+    event.preventDefault();
+    var name = event.target.name.value; //, ,
+    var minHourlyCustomer = event.target.minHourlyCustomer.value;
+    var maxHourlyCustomer = event.target.maxHourlyCustomer.value;
+    var hourlyCookiesPerCustomer = event.target.hourlyCookiesPerCustomer.value;
+
+    var newStore = new Store(name, minHourlyCustomer, maxHourlyCustomer, hourlyCookiesPerCustomer);
+    newStore.render();
+    addStoreForm.reset();
+  }
+);
+
 var getColumnSum = function(i) {
   return firstAndPike.cookiesPurchasedEachHour[i] + seaTacAirport.cookiesPurchasedEachHour[i] + seattleCenter.cookiesPurchasedEachHour[i] + capitolHill.cookiesPurchasedEachHour[i] + alki.cookiesPurchasedEachHour[i];
 };
