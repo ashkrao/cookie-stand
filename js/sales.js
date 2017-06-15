@@ -52,9 +52,9 @@ addForm.addEventListener('submit',
     event.preventDefault();
 
     var name = event.target.name.value;
-    var minHourlyCustomer = event.target.minHourlyCustomer.value;
-    var maxHourlyCustomer = event.target.maxHourlyCustomer.value;
-    var hourlyCookiesPerCustomer = event.target.hourlyCookiesPerCustomer.value;
+    var minHourlyCustomer = parseInt(event.target.minHourlyCustomer.value);
+    var maxHourlyCustomer = parseInt(event.target.maxHourlyCustomer.value);
+    var hourlyCookiesPerCustomer = parseFloat(event.target.hourlyCookiesPerCustomer.value);
 
     var newStore = new Store(name, minHourlyCustomer, maxHourlyCustomer, hourlyCookiesPerCustomer);
     storeArray.push(newStore);
@@ -65,7 +65,11 @@ addForm.addEventListener('submit',
 );
 
 var getColumnSum = function(i) {
-  return firstAndPike.cookiesPurchasedEachHour[i] + seaTacAirport.cookiesPurchasedEachHour[i] + seattleCenter.cookiesPurchasedEachHour[i] + capitolHill.cookiesPurchasedEachHour[i] + alki.cookiesPurchasedEachHour[i];
+  var colSum = 0;
+  for(var j = 0; j < storeArray.length; j++) {
+    colSum = colSum + storeArray[j].cookiesPurchasedEachHour[i];
+  }
+  return colSum;
 };
 
 var generateTable = function () {
