@@ -44,44 +44,38 @@ var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
-/*
-var generateList = function (store) {
+var storeArray = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
-  var parentElement = document.getElementById('stores');
+var addForm = document.getElementById('addStoreForm');
+addForm.addEventListener('submit',
+  function (event) {
+    event.preventDefault();
 
-  var h2 = document.createElement('h2');
-  h2.textContent = store.name;
-  parentElement.appendChild(h2);
+    var name = event.target.name.value;
+    var minHourlyCustomer = parseInt(event.target.minHourlyCustomer.value);
+    var maxHourlyCustomer = parseInt(event.target.maxHourlyCustomer.value);
+    var hourlyCookiesPerCustomer = parseFloat(event.target.hourlyCookiesPerCustomer.value);
 
-  var ul = document.createElement('ul');
-  parentElement.appendChild(ul);
+    var newStore = new Store(name, minHourlyCustomer, maxHourlyCustomer, hourlyCookiesPerCustomer);
+    storeArray.push(newStore);
+    generateTable();
 
-  for (var i = 0; i < store.cookiesPurchasedEachHour.length; i++) {
-    var li = document.createElement('li');
-    var hour = i + 6;
-    var time = 'am';
-    if(hour > 12) {
-      hour = hour - 12;
-      time = 'pm';
-    }
-    li.textContent = hour + time + ': ' + store.cookiesPurchasedEachHour[i] + ' cookies';
-    ul.appendChild(li);
+    addForm.reset();
   }
-};
-
-generateList(firstAndPike);
-generateList(seaTacAirport);
-generateList(seattleCenter);
-generateList(capitolHill);
-generateList(alki);
-*/
+);
 
 var getColumnSum = function(i) {
-  return firstAndPike.cookiesPurchasedEachHour[i] + seaTacAirport.cookiesPurchasedEachHour[i] + seattleCenter.cookiesPurchasedEachHour[i] + capitolHill.cookiesPurchasedEachHour[i] + alki.cookiesPurchasedEachHour[i];
+  var colSum = 0;
+  for(var j = 0; j < storeArray.length; j++) {
+    colSum = colSum + storeArray[j].cookiesPurchasedEachHour[i];
+  }
+  return colSum;
 };
 
 var generateTable = function () {
   var parentElement = document.getElementById('stores');
+  parentElement.innerHTML = ''; // reset the table if it was previously generated
+
   var table = document.createElement('table');
   parentElement.appendChild(table);
   // Add header
@@ -105,12 +99,12 @@ var generateTable = function () {
   row1.appendChild(th);
   head.appendChild(row1);
   table.appendChild(head);
+
   // Call render for each store
-  table.appendChild(firstAndPike.render());
-  table.appendChild(seaTacAirport.render());
-  table.appendChild(seattleCenter.render());
-  table.appendChild(capitolHill.render());
-  table.appendChild(alki.render());
+  for(i = 0; i < storeArray.length; i++) {
+    table.appendChild(storeArray[i].render());
+  }
+
   // Add footer
   var foot = document.createElement('tfoot');
   var row2 = document.createElement('tr');
