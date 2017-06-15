@@ -44,19 +44,23 @@ var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
-var addStoreForm = document.getElementById('addStoreForm');
-// event listeners ened to know: what event do they care about, and what do they want to do when it happens.
-addStoreForm.addEventListener('submit',
+var storeArray = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+var addForm = document.getElementById('addStoreForm');
+addForm.addEventListener('submit',
   function (event) {
     event.preventDefault();
-    var name = event.target.name.value; //, ,
+
+    var name = event.target.name.value;
     var minHourlyCustomer = event.target.minHourlyCustomer.value;
     var maxHourlyCustomer = event.target.maxHourlyCustomer.value;
     var hourlyCookiesPerCustomer = event.target.hourlyCookiesPerCustomer.value;
 
     var newStore = new Store(name, minHourlyCustomer, maxHourlyCustomer, hourlyCookiesPerCustomer);
-    newStore.render();
-    addStoreForm.reset();
+    storeArray.push(newStore);
+    generateTable();
+
+    addForm.reset();
   }
 );
 
@@ -66,6 +70,8 @@ var getColumnSum = function(i) {
 
 var generateTable = function () {
   var parentElement = document.getElementById('stores');
+  parentElement.innerHTML = ''; // reset the table if it was previously generated
+
   var table = document.createElement('table');
   parentElement.appendChild(table);
   // Add header
@@ -89,12 +95,12 @@ var generateTable = function () {
   row1.appendChild(th);
   head.appendChild(row1);
   table.appendChild(head);
+
   // Call render for each store
-  table.appendChild(firstAndPike.render());
-  table.appendChild(seaTacAirport.render());
-  table.appendChild(seattleCenter.render());
-  table.appendChild(capitolHill.render());
-  table.appendChild(alki.render());
+  for(i = 0; i < storeArray.length; i++) {
+    table.appendChild(storeArray[i].render());
+  }
+
   // Add footer
   var foot = document.createElement('tfoot');
   var row2 = document.createElement('tr');
