@@ -17,22 +17,23 @@ Store.prototype.generateCustomers = function() {
   return cookiesPurchasedEachHour;
 };
 
+// Render generates One row with 16 (name + cookie sales + Daily total) cells
 Store.prototype.render = function() {
-  var row = document.createElement('tr');
-  var td = document.createElement('td');
+  var row = document.createElement('tr'); // generating row for table.
+  var td = document.createElement('td'); // generating cell for table.
   td.textContent = this.name;
   row.appendChild(td);
-  var total = 0;
+  var dlTotal = 0;
   for (var i = 0; i < 14; i++) {
-    total = total + this.cookiesPurchasedEachHour[i];
-
     td = document.createElement('td');
     td.textContent = this.cookiesPurchasedEachHour[i];
     row.appendChild(td);
+
+    dlTotal = dlTotal + this.cookiesPurchasedEachHour[i];
   }
 
   td = document.createElement('td');
-  td.textContent = total;
+  td.textContent = dlTotal;
   row.appendChild(td);
 
   return row;
@@ -80,9 +81,12 @@ var generateTable = function () {
   parentElement.appendChild(table);
   // Add header
   var head = document.createElement('thead');
+  table.appendChild(head);
   var row1 = document.createElement('tr');
+  head.appendChild(row1);
   var th = document.createElement('th');
   row1.appendChild(th);
+
   for (var i = 0; i < 14; i++) {
     var hour = i + 6;
     var time = 'am';
@@ -96,9 +100,6 @@ var generateTable = function () {
   }
   th = document.createElement('th');
   th.textContent = 'Daily Location Total';
-  row1.appendChild(th);
-  head.appendChild(row1);
-  table.appendChild(head);
 
   // Call render for each store
   for(i = 0; i < storeArray.length; i++) {
@@ -107,10 +108,12 @@ var generateTable = function () {
 
   // Add footer
   var foot = document.createElement('tfoot');
-  var row2 = document.createElement('tr');
+  table.appendChild(foot);
+  var footerRow = document.createElement('tr');
+  foot.appendChild(footerRow);
   var td = document.createElement('td');
   td.textContent = 'Totals';
-  row2.appendChild(td);
+  footerRow.appendChild(td);
 
   var totalSum = 0;
   for (i = 0; i < 14; i++) {
@@ -118,14 +121,11 @@ var generateTable = function () {
     var columnSum = getColumnSum(i);
     totalSum = totalSum + columnSum;
     td.textContent = columnSum;
-    row2.appendChild(td);
+    footerRow.appendChild(td);
   }
   td = document.createElement('td');
   td.textContent = totalSum;
-  row2.appendChild(td);
-
-  foot.appendChild(row2);
-  table.appendChild(foot);
+  footerRow.appendChild(td);
 };
 
 generateTable();
