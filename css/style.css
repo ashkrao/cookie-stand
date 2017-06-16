@@ -4,7 +4,8 @@
 }
 
 body {
-  margin: 0;
+  background-color: #F4C265;
+  color: #355573;
 }
 
 footer p {
@@ -12,6 +13,10 @@ footer p {
   width: 200px;
   padding: 20px;
   border: 50px solid black;
+}
+
+div {
+  text-align: center;
 }
 
 a {
@@ -26,17 +31,50 @@ a::after {
   content: " (opens in new window)";
 }
 
+h1 {
+  color: #F0581E;
+  text-shadow: 1px 1px 4px #F3F0F2;
+}
+
+h2 {
+  color: #F56D4E;
+  text-shadow: 1px 1px 4px #F3F0F2;
+}
+
+h3 {
+  color: #F3F0F2;
+  text-shadow: 1px 1px 4px #F0581E;
+}
+
+h4 {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: auto;
+}
+
+.store-info {
+  background-color: rgba(224,170,206,0.7);
+  padding: 20px;
+}
+
+.company-info {
+  background-color: rgba(77,41,24,0.2);
+  padding: 20px;
+}
+
+.merchandise {
+  background-color: rgba(53,166,53,0.3);
+  padding: 20px;
+}
+
 input:focus {
   background-color: #f4f699;
   outline-color: orange;
-}
-
-footer p::first-line {
-  font-weight: bold;
-}
-
-footer p::first-letter {
-  font-size: 72px;
 }
 
 /*this is a class that we have to put on the element we want to clear*/
@@ -44,16 +82,12 @@ footer p::first-letter {
   clear: both;
 }
 
-/*percents for widths*/
-main p {
-  width: 50%;
-}
-
 /*implement our grid*/
 
 .row,
 .column {
   box-sizing: border-box;
+  padding: 5 px;
 }
 
 .row::before,
