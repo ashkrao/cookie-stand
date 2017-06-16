@@ -114,6 +114,7 @@ var generateTable = function () {
   var td = document.createElement('td');
   td.textContent = 'Totals';
   footerRow.appendChild(td);
+  row1.appendChild(th);
 
   var totalSum = 0;
   for (i = 0; i < 14; i++) {
