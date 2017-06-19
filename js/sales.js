@@ -6,13 +6,17 @@ function Store (name, minHourlyCustomer, maxHourlyCustomer, hourlyCookiesPerCust
   this.minHourlyCustomer = minHourlyCustomer;
   this.maxHourlyCustomer = maxHourlyCustomer;
   this.hourlyCookiesPerCustomer = hourlyCookiesPerCustomer;
-  this.cookiesPurchasedEachHour = this.generateCustomers();
+  this.cookiesPurchasedEachHour = this.generateCookies();
 }
 
-Store.prototype.generateCustomers = function() {
+Store.prototype.generateCookies = function() {
   var cookiesPurchasedEachHour = [];
   for(var i = 0; i < 14; i++) {
-    cookiesPurchasedEachHour[i] = Math.floor(Math.random() * (this.maxHourlyCustomer - this.minHourlyCustomer + 1)) + this.minHourlyCustomer;
+    // first generate a random number of customrs between the min and max limits
+    var customersThisHour = Math.floor(Math.random() * (this.maxHourlyCustomer - this.minHourlyCustomer + 1)) + this.minHourlyCustomer;
+
+    // total cookies = cookies per customer x total customers
+    cookiesPurchasedEachHour[i] = Math.floor(this.hourlyCookiesPerCustomer * customersThisHour);
   }
   return cookiesPurchasedEachHour;
 };
