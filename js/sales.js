@@ -77,13 +77,9 @@ var getColumnSum = function(i) {
   return colSum;
 };
 
-var generateTable = function () {
-  var parentElement = document.getElementById('stores');
-  parentElement.innerHTML = ''; // reset the table if it was previously generated
+//Function to add table footer
 
-  var table = document.createElement('table');
-  parentElement.appendChild(table);
-  // Add header
+var addTableHeader = function(table) {
   var head = document.createElement('thead');
   table.appendChild(head);
   var row1 = document.createElement('tr');
@@ -104,13 +100,11 @@ var generateTable = function () {
   }
   th = document.createElement('th');
   th.textContent = 'Daily Location Total';
+};
 
-  // Call render for each store
-  for(i = 0; i < storeArray.length; i++) {
-    table.appendChild(storeArray[i].render());
-  }
+//Function to add table footer
 
-  // Add footer
+var addTableFooter = function(table) {
   var foot = document.createElement('tfoot');
   table.appendChild(foot);
   var footerRow = document.createElement('tr');
@@ -118,10 +112,9 @@ var generateTable = function () {
   var td = document.createElement('td');
   td.textContent = 'Totals';
   footerRow.appendChild(td);
-  row1.appendChild(th);
 
   var totalSum = 0;
-  for (i = 0; i < 14; i++) {
+  for (var i = 0; i < 14; i++) {
     td = document.createElement('td');
     var columnSum = getColumnSum(i);
     totalSum = totalSum + columnSum;
@@ -131,6 +124,23 @@ var generateTable = function () {
   td = document.createElement('td');
   td.textContent = totalSum;
   footerRow.appendChild(td);
+};
+
+var generateTable = function () {
+  var parentElement = document.getElementById('stores');
+  parentElement.innerHTML = ''; // reset the table if it was previously generated
+
+  var table = document.createElement('table');
+  parentElement.appendChild(table);
+
+  addTableHeader(table);
+
+  // Call render for each store
+  for(var i = 0; i < storeArray.length; i++) {
+    table.appendChild(storeArray[i].render());
+  }
+
+  addTableFooter(table);
 };
 
 generateTable();
